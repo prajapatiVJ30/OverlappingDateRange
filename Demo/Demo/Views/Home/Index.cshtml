@@ -1,0 +1,115 @@
+﻿@model Demo.Model.DemoModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<script>
+        $(function () {
+            $(".kendoDatetimepicker").kendoDateTimePicker({
+                dateInput: true,
+                format: 'dd/MM/yyyy HH:mm'
+            });
+        })
+</script>
+<div ng-controller="myCntrl">
+    <div class="row">
+        <h2>Inputs</h2>
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="col-md-6 mb-3">
+                    <div class="col-md-3">Start DateTime1</div>
+                    <div class="col-md-3 k-content">
+                        <input class="kendoDatetimepicker" data-ng-model="calculation.StartDate1" k-data-source="calculation.StartDate1"  required />
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="col-md-3">Start DateTime2</div>
+                    <div class="col-md-3">
+                        <input class="kendoDatetimepicker" data-ng-model="calculation.StartDate2" k-data-source="calculation.StartDate2"  required />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6 mb-4">
+                    <div class="col-md-3">End DateTime1</div>
+                    <div class="col-md-3">
+                    
+                        <input  class="kendoDatetimepicker" data-ng-model="calculation.EndDate1" k-data-source="calculation.EndDate1" required />
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="col-md-3">End DateTime2</div>
+                    <div class="col-md-3">
+                        <input  class="kendoDatetimepicker" data-ng-model="calculation.EndDate2" k-data-source="calculation.EndDate2" required />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <div class="float-right">
+                    <button ng-click="calculateOverlap()" class="btn btn-default m-t-15 waves-effect" style='margin-right:10px' type="button">Calculate</button>
+                    <button ng-click="save()" class="btn btn-primary m-t-15 waves-effect" style='margin-right:10px' type="button">Submit</button>
+                    <button ng-click="getAllData()" class="btn btn-primary m-t-15 waves-effect" style='margin-right:10px' type="button">Load</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h2>Outputs</h2>
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="col-md-6">
+                    <p>Date Overlap: {{calculation.IsOverlap ? "YES" : "NO"}} </p>
+                    <p>
+                        Overlap Start(GMT):  {{calculation.Overlap_StartDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                    </p>
+                    <p>
+                        Overlap End(GMT):  {{calculation.Overlap_EndDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <table cellpadding="12" class="table table-bordered table-hover">
+            <tr>
+                <td><b>StartDate1</b></td>
+                <td><b>EndDate1</b></td>
+                <td><b>StartDate2</b></td>
+                <td><b>EndDate2</b></td>
+                <td><b>Overlap</b></td>
+                <td><b>Overlap-StartDate</b></td>
+                <td><b>Overlap-EndDate</b></td>
+                <td><b>CreateDate</b></td>
+            </tr>
+            <tr ng-repeat="calc in calculations">
+                <td>
+                    {{calc.StartDate1 | date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+                <td>
+                    {{calc.EndDate1 | date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+                <td>
+                    {{calc.StartDate2 | date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+                <td>
+                    {{calc.EndDate2 | date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+                <td>
+                    {{calc.IsOverlap ? "YES" : "NO"}}
+                </td>
+                <td>
+                    {{calc.Overlap_StartDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+                <td>
+                    {{calc.Overlap_EndDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+                <td>
+                    {{calc.CreateDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
